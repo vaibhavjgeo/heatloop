@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     "Assess waste-heat reuse of German data centres against EnEfG targets and score new sites by subsurface and heat-demand potential. Built on open data and thesis research.",
 };
 
+const MAIN = "https://vaibhavjgeo.vercel.app";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -32,28 +34,53 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <header className="site">
           <div className="wrap nav-inner">
-            <Link href="/" className="logo" aria-label="HeatLoop home">
-              Heat<span className="logo-accent">Loop</span>
-            </Link>
+            <a href={`${MAIN}/`} className="logo" aria-label="Home">
+              Vaibhav <span className="logo-accent">Jaiswal</span>
+            </a>
             <nav className="main">
               <ul>
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/assess">Assess a Data Centre</Link></li>
-                <li><Link href="/site">Find a Site</Link></li>
-                <li>
-                  <a href="https://vaibhavjgeo.vercel.app" target="_blank" rel="noopener">
-                    Portfolio ↗
-                  </a>
-                </li>
+                <li><a href={`${MAIN}/`}>Home</a></li>
+                <li><Link href="/" className="active">HeatLoop</Link></li>
+                <li><a href={`${MAIN}/thesis/`}>Master Thesis</a></li>
+                <li><a href={`${MAIN}/bhe/`}>BHE Recommender</a></li>
+                <li><a href={`${MAIN}/geochat/`}>GeoChat</a></li>
               </ul>
             </nav>
+            <a href="https://github.com/vaibhavjgeo/heatloop" className="nav-github" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>GitHub</span>
+            </a>
           </div>
         </header>
         {children}
-        <footer className="site">
-          <div className="wrap row">
-            <div>HeatLoop · Vaibhav Jaiswal · built on open data (OpenStreetMap, CMIP6, EnEfG)</div>
-            <div>First-pass planning estimates, not engineering advice · €0/month infrastructure</div>
+        <footer className="site" id="contact">
+          <div className="wrap">
+            <div className="footer-top">
+              <div>
+                <p className="footer-tagline">Let&apos;s <em>research</em> something together.</p>
+              </div>
+              <div className="footer-col">
+                <h5>Navigate</h5>
+                <ul>
+                  <li><a href={`${MAIN}/`}>Home</a></li>
+                  <li><Link href="/">HeatLoop</Link></li>
+                  <li><a href={`${MAIN}/thesis/`}>Master Thesis</a></li>
+                  <li><a href={`${MAIN}/bhe/`}>BHE Recommender</a></li>
+                  <li><a href={`${MAIN}/geochat/`}>GeoChat</a></li>
+                </ul>
+              </div>
+              <div className="footer-col">
+                <h5>Contact</h5>
+                <ul>
+                  <li><a href="mailto:vaibhavjaiswal1234@gmail.com">Email</a></li>
+                  <li><a href="https://github.com/vaibhavjgeo">GitHub</a></li>
+                </ul>
+              </div>
+            </div>
+            <div className="footer-bottom">
+              <div>Vaibhav Jaiswal · Karlsruhe, DE</div>
+              <div>© 2026 · Built with care · Vercel</div>
+            </div>
           </div>
         </footer>
       </body>
