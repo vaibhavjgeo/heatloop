@@ -141,8 +141,8 @@ export default function AssessTool() {
               <label className="f" htmlFor="pue">PUE (total power ÷ IT power)</label>
               <select id="pue" className="f" value={pue} onChange={(e) => setPue(e.target.value)}>
                 <option value="1.2">1.2 - new build (EnEfG target from 2026)</option>
-                <option value="1.3">1.3 - modern facility</option>
-                <option value="1.5">1.5 - existing stock (2027 limit)</option>
+                <option value="1.3">1.3 - efficient modern facility</option>
+                <option value="1.5">1.5 - existing-stock limit 2027 (~industry avg 1.56, Uptime 2024)</option>
                 <option value="1.8">1.8 - older facility</option>
               </select>
               <div className="cta-row" style={{ marginTop: 18 }}>
@@ -161,7 +161,7 @@ export default function AssessTool() {
                     <div className="stat"><div className="v">{result.homesHeatable.toLocaleString()}</div><div className="l">Homes heatable*</div></div>
                     <div className="stat"><div className="v">{result.totalPowerMW.toFixed(1)}<span className="unit">MW</span></div><div className="l">Grid draw (PUE {result.pue})</div></div>
                   </div>
-                  <div className="hint">*after 85% capture and 12% network losses, at 15,000 kWh/yr per home.</div>
+                  <div className="hint">*after 85% capture and 12% network losses, at 15,000 kWh/yr space-heating demand per home.</div>
                   <h3 style={{ marginTop: 20 }}>EnEfG reuse targets</h3>
                   {result.erf.map((t) => (
                     <div className="erf-row" key={t.target}>

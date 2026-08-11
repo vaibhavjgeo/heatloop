@@ -123,7 +123,7 @@ export default function SiteTool() {
                   <div className="stat-grid" style={{ marginTop: 14 }}>
                     <div className="stat">
                       <div className="v">{geo?.extractionWm ?? "–"}<span className="unit">W/m</span></div>
-                      <div className="l">Sustainable extraction (100 yr)</div>
+                      <div className="l">Sustainable extraction (100 yr) · interpolated from ~25 km cell</div>
                     </div>
                     <div className="stat">
                       <div className="v">{pop5 === null ? "–" : pop5.toLocaleString()}</div>

@@ -1,21 +1,95 @@
 {
   "about": "HeatLoop knowledge base for retrieval-grounded generation. Sources: German Energy Efficiency Act (EnEfG) as researched Aug 2026; VDI 4640 guideline ranges; Jaiswal (2025) M.Sc. thesis, KIT; public data-centre engineering references.",
   "chunks": [
-    {"id": "enefg-scope", "topic": "EnEfG scope", "text": "Germany's Energy Efficiency Act (EnEfG, in force since January 2024) applies to data centres with a non-redundant nominal electrical connected load of 300 kW or more, covering IT plus all technical building systems."},
-    {"id": "enefg-erf", "topic": "EnEfG energy reuse factor", "text": "Under the EnEfG, new data centres must achieve a minimum Energy Reuse Factor (ERF): at least 10% reused waste heat if operations start on or after 1 July 2026, 15% from 1 July 2027, and 20% from 1 July 2028. ERF is the share of energy redirected to use outside the data centre's own IT and infrastructure operations. Targets apply after a two-year optimization phase from commissioning."},
-    {"id": "enefg-exemptions", "topic": "EnEfG exemptions", "text": "EnEfG ERF exemptions exist: if a municipality or heat-network operator commits to building a heat network within ten years, or if a nearby heat-network operator declines an offer of reused energy at cost price within six months despite the data centre providing the necessary transfer infrastructure, the quota can be deferred."},
-    {"id": "enefg-pue", "topic": "EnEfG PUE requirements", "text": "EnEfG PUE requirements: data centres starting operation on or after 1 July 2026 must reach PUE <= 1.2 within two years. Existing centres must reach PUE <= 1.5 by 1 July 2027 and <= 1.3 by 1 July 2030. A draft amendment published 9 April 2026 proposes relaxing these to 1.3 (new) and 1.6/1.4 (existing); it is not yet law."},
-    {"id": "enefg-renewables", "topic": "EnEfG renewable electricity", "text": "The EnEfG requires data centres to cover 50% of electricity consumption with renewable power from 1 January 2024 and 100% from 1 January 2027."},
-    {"id": "enefg-reporting", "topic": "EnEfG reporting", "text": "EnEfG obliges data-centre operators to run an energy or environmental management system (from July 2025; certified from 2026 above 1 MW), report energy and waste-heat data to the federal platform (BAFA/BfEE), and feed the EU data-centre database. Violations of efficiency and waste-heat duties can be fined up to EUR 100,000."},
-    {"id": "pue-definition", "topic": "PUE definition", "text": "Power Usage Effectiveness (PUE) is total facility energy divided by IT equipment energy. A PUE of 1.2 means 20% overhead on top of IT load, mostly cooling. Modern German hyperscale facilities target PUE 1.2-1.3; older stock often runs 1.5-1.8."},
-    {"id": "waste-heat-physics", "topic": "Waste heat physics", "text": "Practically all electrical energy consumed by IT equipment converts to heat. A data centre with 10 MW average IT load emits roughly 10 MW of thermal power continuously (~87.6 GWh of heat per year), typically as low-grade heat at 25-45 C from air cooling or 45-60 C from direct liquid cooling. Heat pumps can lift this to the 70-90 C needed by district heating networks."},
-    {"id": "heat-demand-homes", "topic": "German household heat demand", "text": "A typical German dwelling uses about 15,000-20,000 kWh of heat per year (space heating plus hot water); well-insulated new builds need 6,000-10,000 kWh. Using ~15 MWh/yr per home, each MW of continuously available waste heat (~8.76 GWh/yr) can supply on the order of 400-600 homes, before network losses (typically 10-15%)."},
-    {"id": "vdi4640", "topic": "VDI 4640 extraction values", "text": "VDI 4640 gives specific heat extraction ranges for borehole heat exchangers by ground type (for ~1800 full-load hours): dry sand/gravel 20-25 W/m, water-saturated sand/gravel 55-65 W/m, clay/loam 30-45 W/m, limestone 45-60 W/m, sandstone 55-65 W/m, granite/gneiss 55-70 W/m. Moist sediments with lambda ~2.5 W/mK are typical for much of Germany."},
-    {"id": "thesis-headline", "topic": "Thesis headline findings", "text": "Jaiswal (2025, KIT) modelled climate-change impacts on closed-loop shallow geothermal potential across Germany at 5 km resolution using 8 CMIP6 GCMs (SSP 2-4.5 and SSP 5-8.5): mean subsurface warming of +1.7 +/- 0.6 C (SSP 2-4.5) to +3.1 +/- 1.1 C (SSP 5-8.5) by 2100; each 1 C of ground warming substitutes about 4 m of drilling depth; extraction efficiency rises roughly 8-24% by 2100; mean sustainable extraction spans 26.97-47.39 W/m; sustainable 100-year operation yields 20-35% more than a depleting 50-year mode. DOI 10.5281/zenodo.20540260."},
-    {"id": "thesis-model", "topic": "Thesis model setup", "text": "The thesis model uses moving finite-line-source theory (Rivera et al. 2017) with seasonal surface signals and borehole thermal resistance (H = 150 m, lambda = 2.5 W/mK, Rb = 0.15 mK/W), solving maximum sustainable extraction per pixel with Brent's method under the SIA 384/6 constraint (minimum fluid temperature >= -1.5 C)."},
-    {"id": "subsurface-cooling", "topic": "Subsurface cooling for data centres", "text": "The shallow subsurface can serve data centres two ways: as a heat sink (borehole fields or groundwater wells absorbing waste heat, reducing chiller electricity) and as seasonal storage (BTES: charge heat in summer, discharge to district heating in winter). Ground with higher thermal conductivity and groundwater flow dissipates injected heat faster, supporting higher continuous injection rates; the same properties that favour extraction (thesis W/m values) indicate good thermal coupling for injection."},
-    {"id": "siting-logic", "topic": "Siting logic", "text": "Good waste-heat-ready data-centre sites in Germany combine: high nearby heat demand (dense residential or existing district-heating within ~2-3 km, since heat transport beyond a few km is costly), favourable subsurface thermal properties for ground coupling and storage, available grid power, and fibre. The EnEfG makes heat off-take a siting criterion in law, not just economics: without a nearby heat sink, new facilities struggle to meet ERF quotas."},
-    {"id": "frankfurt-context", "topic": "German DC market context", "text": "Germany is Europe's largest data-centre market. Frankfurt am Main is the anchor hub (roughly 745 MW live IT load, with hundreds of MW under construction), followed by Berlin, Munich, Hamburg, and the Rhineland; national consumption is on the order of 18 TWh/yr. Examples of waste-heat reuse exist (e.g. campuses feeding district heating in Frankfurt and Berlin), but most waste heat is still vented."},
-    {"id": "heat-pump-lift", "topic": "Heat pump integration", "text": "Data-centre waste heat at 30-60 C usually needs large heat pumps to reach district-heating supply temperatures (70-90 C, or 40-60 C for modern low-temperature networks). Typical COPs of 3-5 mean each unit of electricity moves 3-5 units of heat; low-temperature (4th/5th generation) networks and building-level heat pumps can use the heat almost directly."}
+    {
+      "id": "enefg-scope",
+      "topic": "EnEfG scope",
+      "text": "Germany's Energy Efficiency Act (EnEfG) entered into force on 18 November 2023, with data-centre obligations phasing in from 2024. It applies to data centres with a non-redundant nominal electrical connected load of 300 kW or more (a June 2026 cabinet draft would raise this to 500 kW IT load)."
+    },
+    {
+      "id": "enefg-erf",
+      "topic": "EnEfG energy reuse factor",
+      "text": "Under the EnEfG, new data centres must achieve a minimum Energy Reuse Factor (ERF): at least 10% reused waste heat if operations start on or after 1 July 2026, 15% from 1 July 2027, and 20% from 1 July 2028. ERF is the share of energy redirected to use outside the data centre's own IT and infrastructure operations. Targets apply after a two-year optimization phase from commissioning."
+    },
+    {
+      "id": "enefg-exemptions",
+      "topic": "EnEfG exemptions",
+      "text": "EnEfG ERF exemptions exist: if a municipality or heat-network operator commits to building a heat network within ten years, or if a nearby heat-network operator declines an offer of reused energy at cost price within six months despite the data centre providing the necessary transfer infrastructure, the quota can be deferred."
+    },
+    {
+      "id": "enefg-pue",
+      "topic": "EnEfG PUE requirements",
+      "text": "EnEfG PUE requirements: data centres starting operation on or after 1 July 2026 must reach PUE <= 1.2 within two years. Existing centres must reach PUE <= 1.5 by 1 July 2027 and <= 1.3 by 1 July 2030. The June 2026 cabinet draft proposes relaxing these to 1.3 (new) and 1.6/1.4 (existing); it is not yet law. For context, the global industry-average PUE is about 1.56 (Uptime Institute Global Data Center Survey 2024)."
+    },
+    {
+      "id": "enefg-renewables",
+      "topic": "EnEfG renewable electricity",
+      "text": "The EnEfG requires data centres to cover 50% of electricity consumption with renewable power from 1 January 2024 and 100% from 1 January 2027 under current law; the June 2026 draft amendment would defer the 100% duty to 2030."
+    },
+    {
+      "id": "enefg-reporting",
+      "topic": "EnEfG reporting",
+      "text": "EnEfG obliges data-centre operators to run an energy or environmental management system (from July 2025; certified from 2026 above 1 MW), report energy and waste-heat data to the federal platform (BAFA/BfEE), and feed the EU data-centre database. Violations of efficiency and waste-heat duties can be fined up to EUR 100,000."
+    },
+    {
+      "id": "pue-definition",
+      "topic": "PUE definition",
+      "text": "Power Usage Effectiveness (PUE) is total facility energy divided by IT equipment energy. A PUE of 1.2 means 20% overhead on top of IT load, mostly cooling. Modern German hyperscale facilities target PUE 1.2-1.3; older stock often runs 1.5-1.8."
+    },
+    {
+      "id": "waste-heat-physics",
+      "topic": "Waste heat physics",
+      "text": "Practically all electrical energy consumed by IT equipment converts to heat. A data centre with 10 MW average IT load emits roughly 10 MW of thermal power continuously (~87.6 GWh of heat per year), typically as low-grade heat at 25-45 C from air cooling or 45-60 C from direct liquid cooling. Heat pumps can lift this to the 70-90 C needed by district heating networks."
+    },
+    {
+      "id": "heat-demand-homes",
+      "topic": "German household heat demand",
+      "text": "A typical German dwelling uses about 15,000-20,000 kWh of heat per year (space heating plus hot water); well-insulated new builds need 6,000-10,000 kWh. Using ~15 MWh/yr per home, each MW of continuously available waste heat (~8.76 GWh/yr) can supply on the order of 400-600 homes, before network losses (typically 10-15%)."
+    },
+    {
+      "id": "vdi4640",
+      "topic": "VDI 4640 extraction values",
+      "text": "VDI 4640 gives specific heat extraction ranges for borehole heat exchangers by ground type (for ~1800 full-load hours): dry sand/gravel 20-25 W/m, water-saturated sand/gravel 55-65 W/m, clay/loam 30-45 W/m, limestone 45-60 W/m, sandstone 55-65 W/m, granite/gneiss 55-70 W/m. Moist sediments with lambda ~2.5 W/mK are typical for much of Germany."
+    },
+    {
+      "id": "thesis-headline",
+      "topic": "Thesis headline findings",
+      "text": "Jaiswal (2025, KIT) modelled climate-change impacts on closed-loop shallow geothermal potential across Germany using 8 CMIP6 GCMs (BCC-CSM2-MR, CanESM5, GFDL-ESM4, GISS-E2-1-G, HadGEM3-GC31-LL, IPSL-CM6A-LR, MIROC6, MPI-ESM1-2-HR) under SSP 2-4.5 and SSP 5-8.5, on a 5 km analysis grid resampled from the native 0.25 deg (~25 km) NASA NEX-GDDP-CMIP6 data (surface driver: near-surface air temperature, tas). Findings: mean subsurface warming +1.7 +/- 0.6 C (SSP 2-4.5) to +3.1 +/- 1.1 C (SSP 5-8.5) by 2100; each 1 C of ground warming substitutes about 4 m of drilling depth (urban central-Europe rule, Rivera et al. 2017); extraction efficiency rises roughly 8-24% by 2100; mean sustainable extraction ~27-47 W/m; sustainable 100-year operation yields 20-35% more than a depleting 50-year mode. DOI 10.5281/zenodo.20540260."
+    },
+    {
+      "id": "thesis-model",
+      "topic": "Thesis model setup",
+      "text": "The thesis model uses a finite-line-source formulation with a Cauchy-type upper boundary (Rivera, Blum & Bayer 2016, Energy 98) in the moving-FLS lineage of Molina-Giraldo et al. (2011), with seasonal surface signals and borehole thermal resistance (H = 150 m, lambda = 2.5 W/(m K), Rb = 0.15 (m K)/W), solving maximum sustainable extraction per pixel with Brent's method under the SIA 384/6 constraint (minimum fluid temperature >= -1.5 C); VDI 4640 is the corresponding German design guideline. Limitations: uniform ground properties, no groundwater advection, ensemble spread only, continuous load assumed."
+    },
+    {
+      "id": "subsurface-cooling",
+      "topic": "Subsurface cooling for data centres",
+      "text": "The shallow subsurface can serve data centres two ways: as a heat sink (borehole fields or groundwater wells absorbing waste heat, reducing chiller electricity) and as seasonal storage (BTES: charge heat in summer, discharge to district heating in winter). Ground with higher thermal conductivity and groundwater flow dissipates injected heat faster, supporting higher continuous injection rates; the same properties that favour extraction (thesis W/m values) indicate good thermal coupling for injection."
+    },
+    {
+      "id": "siting-logic",
+      "topic": "Siting logic",
+      "text": "Good waste-heat-ready data-centre sites in Germany combine: high nearby heat demand (dense residential or existing district heating within ~2-3 km, since heat transport beyond a few km is costly), favourable subsurface thermal properties for ground coupling and storage, available grid power, and fibre. The EnEfG makes heat off-take a siting criterion in law. Note the seasonal mismatch: data-centre heat is continuous while heating demand peaks in winter - seasonal storage (BTES) or year-round sinks (pools, industry) bridge it. Population is a proxy; municipal Waermeplanung maps are the planning-grade source."
+    },
+    {
+      "id": "frankfurt-context",
+      "topic": "German DC market context",
+      "text": "Germany is Europe's largest data-centre market: roughly 2,000 data centres above 100 kW, about 2,980 MW of total IT capacity in 2025 (expected to pass 3,000 MW in early 2026), consuming about 20 TWh of electricity in 2024 and ~21.3 TWh in 2025 (Bitkom/Borderstep). Frankfurt am Main is the anchor hub, followed by Berlin, Munich, Hamburg, and the Rhineland. Waste-heat reuse examples exist (campuses feeding district heating in Frankfurt and Berlin), but most waste heat is still vented. OpenStreetMap's mapped facilities (~270 in HeatLoop's snapshot) are only a subset of the national stock."
+    },
+    {
+      "id": "heat-pump-lift",
+      "topic": "Heat pump integration",
+      "text": "Data-centre waste heat at 30-60 C usually needs large heat pumps to reach district-heating supply temperatures. Typical COPs are about 2.5-3.5 for the high lift into classic 3rd-generation networks (70-90 C supply) and up to ~5 into low-temperature 4th/5th-generation networks (50-70 C or below), which can use the heat almost directly."
+    },
+    {
+      "id": "heat-demand-mapping",
+      "topic": "heat-demand-mapping",
+      "text": "Population within a radius is only a proxy for heat demand. Real German heat planning uses heat-demand density maps: municipal Waermekataster, the statutory kommunale Waermeplanung under the Waermeplanungsgesetz (WPG, in force 2024 - plans due 2026/2028 depending on city size), and open datasets such as Hotmaps and the Pan-European Thermal Atlas (Peta). These capture building stock and MWh-per-hectare demand that population counts miss, plus existing Fernwaerme networks."
+    },
+    {
+      "id": "bhe-permitting",
+      "topic": "bhe-permitting",
+      "text": "Drilling a borehole heat exchanger in Germany requires notification or a permit under the Wasserhaushaltsgesetz (WHG) and Land water law; drilling is generally prohibited in water-protection zones (Wasserschutzgebiete). Systems above ~30 kW typically require a Thermal Response Test and thermo-hydraulic modelling; boreholes deeper than ~100 m can additionally fall under mining law (Bergrecht)."
+    }
   ]
 }

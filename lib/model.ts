@@ -7,7 +7,7 @@ import geo585 from "@/data/geo_ssp585.json";
 
 export const CONSTANTS = {
   HOURS_PER_YEAR: 8760,
-  /** Average annual heat demand of a German dwelling (kWh/yr, space heating + hot water). */
+  /** Average annual space-heating demand of a German dwelling (kWh/yr). */
   HOME_HEAT_KWH_YR: 15000,
   /** Typical district-heating distribution losses. */
   NETWORK_LOSS: 0.12,

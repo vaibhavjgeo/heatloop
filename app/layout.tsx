@@ -41,9 +41,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ul>
                 <li><a href={`${MAIN}/`}>Home</a></li>
                 <li><Link href="/" className="active">HeatLoop</Link></li>
-                <li><a href={`${MAIN}/thesis/`}>Master Thesis</a></li>
-                <li><a href={`${MAIN}/bhe/`}>BHE Recommender</a></li>
-                <li><a href={`${MAIN}/geochat/`}>GeoChat</a></li>
+                <li><a href="https://vaibhavjgeo-thesis.vercel.app">Master Thesis</a></li>
+                <li><a href="https://vaibhavjgeo-bhe.vercel.app">BHE Recommender</a></li>
+                <li><a href="https://vaibhavjgeo-geochat.vercel.app">GeoChat</a></li>
               </ul>
             </nav>
             <a href="https://github.com/vaibhavjgeo/heatloop" className="nav-github" aria-label="GitHub">
@@ -64,9 +64,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ul>
                   <li><a href={`${MAIN}/`}>Home</a></li>
                   <li><Link href="/">HeatLoop</Link></li>
-                  <li><a href={`${MAIN}/thesis/`}>Master Thesis</a></li>
-                  <li><a href={`${MAIN}/bhe/`}>BHE Recommender</a></li>
-                  <li><a href={`${MAIN}/geochat/`}>GeoChat</a></li>
+                  <li><a href="https://vaibhavjgeo-thesis.vercel.app">Master Thesis</a></li>
+                  <li><a href="https://vaibhavjgeo-bhe.vercel.app">BHE Recommender</a></li>
+                  <li><a href="https://vaibhavjgeo-geochat.vercel.app">GeoChat</a></li>
                 </ul>
               </div>
               <div className="footer-col">

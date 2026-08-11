@@ -6,13 +6,13 @@
 
 ## Why this exists
 
-Germany's Energy Efficiency Act (EnEfG) requires new data centres to reuse **10% of their waste heat from July 2026, 15% from 2027, and 20% from 2028** - making heat off-take a legal siting criterion, not just an economic one. German data centres consume ~18 TWh/yr and vent most of it. HeatLoop turns that policy problem into an explorable tool built entirely on open data.
+Germany's Energy Efficiency Act (EnEfG) requires new data centres to reuse **10% of their waste heat from July 2026, 15% from 2027, and 20% from 2028** - making heat off-take a legal siting criterion, not just an economic one. German data centres consumed about 20 TWh in 2024 (~21.3 TWh expected 2025, Bitkom/Borderstep) and vent most of it. HeatLoop turns that policy problem into an explorable tool built entirely on open data.
 
 ## The two use cases
 
 **01 - Assess an existing data centre** (`/assess`): pick any of 270+ real German facilities (OpenStreetMap) or enter an IT load. Get continuous waste-heat output, homes-heatable equivalent, the EnEfG 10/15/20% targets in absolute GWh and homes, and an AI-written reuse assessment grounded in the law.
 
-**02 - Score a new site** (`/site`): click anywhere in Germany. The point is scored 0-100 on three axes: subsurface thermal potential (published 5 km climate-geothermal model from my M.Sc. thesis, SSP 5-8.5), population within 5 km as heat-demand proxy (GeoNames), and infrastructure synergy (proximity to existing facilities). A multi-step agent then explains the verdict.
+**02 - Score a new site** (`/site`): click anywhere in Germany. The point is scored 0-100 on three axes: subsurface thermal potential (published climate-geothermal model from my M.Sc. thesis - 5 km analysis grid resampled from ~25 km NEX-GDDP-CMIP6, SSP 5-8.5), population within 5 km as heat-demand proxy (GeoNames), and infrastructure synergy (proximity to existing facilities). A multi-step agent then explains the verdict.
 
 ## How this was built - AI-pair-programming disclosure
 
@@ -43,14 +43,14 @@ Next.js 14 (App Router, TypeScript) - React frontend, warm-paper design system
 | Data | Source | Shipped as |
 |---|---|---|
 | Data-centre locations | OpenStreetMap (Overpass API) | bundled snapshot + live refresh |
-| Geothermal potential | Jaiswal (2025), KIT - doi:10.5281/zenodo.20540260 | bundled 5 km grid (SSP 2-4.5 / 5-8.5) |
+| Geothermal potential | Jaiswal (2025), KIT - doi:10.5281/zenodo.20540260 | bundled 5 km analysis grid, resampled from native ~25 km (SSP 2-4.5 / 5-8.5) |
 | Heat-demand proxy | GeoNames.org (CC-BY 4.0) | bundled DE places >= 1,000 pop |
 | Regulation & physics | EnEfG, VDI 4640, engineering references | curated knowledge base |
 | AI model | Groq free tier (Llama 3.3 70B) | `GROQ_API_KEY` env var |
 
 ## Model constants (documented, adjustable in `lib/model.ts`)
 
-Heat capture 85% of IT load · network losses 12% · 15,000 kWh/yr per home · default PUE 1.3 · siting weights: subsurface 40, heat demand 40, synergy 20.
+Heat capture 85% of IT load · network losses 12% · 15,000 kWh/yr space heating per average home · default PUE 1.3 · siting weights: subsurface 40, heat demand 40, synergy 20.
 
 ## Environment variables
 

@@ -23,9 +23,9 @@ export default function Home() {
             Every data centre is a <em>power plant for heat</em>. HeatLoop shows where that heat should go.
           </h1>
           <p className="lead">
-            German data centres consume ~18 TWh of electricity a year and vent most of it as heat, while the
+            German data centres consumed around 20 TWh of electricity in 2024 - heading for ~21.3 TWh in 2025 (Bitkom/Borderstep) - and vent most of it as heat, while the
             Energy Efficiency Act (EnEfG) now requires new facilities to reuse <strong>10-20%</strong> of it.
-            HeatLoop connects the dots with open data: real facilities from OpenStreetMap, subsurface potential
+            Making that heat useful for homes usually takes large heat pumps and district heating (Fernwärme). HeatLoop connects the dots with open data: real facilities from OpenStreetMap, subsurface potential
             from published climate-geothermal research, and an AI analyst that runs the numbers - so planners can
             see the heat-reuse opportunity of any site in seconds.
           </p>
@@ -52,7 +52,7 @@ export default function Home() {
           <p className="sub">
             {mode === "assess"
               ? "Pick a facility on the map (green dots, OpenStreetMap) or enter an IT load - typical colocation halls run 2-20 MW, hyperscale campuses 30-100+ MW. OpenStreetMap rarely records power ratings, so the MW field is yours to set."
-              : "Click anywhere in Germany. The point is scored on subsurface thermal potential (published 5 km climate-geothermal model, SSP 5-8.5), population within 5 km as heat-demand proxy (GeoNames), and infrastructure synergy - then the AI agent explains the verdict."}
+              : "Click anywhere in Germany. The point is scored on subsurface thermal potential (published climate-geothermal model, 5 km analysis grid resampled from ~25 km, SSP 5-8.5), population within 5 km as a heat-demand proxy (GeoNames - a simplification of the municipal heat-demand maps produced under Germany's Wärmeplanungsgesetz), and infrastructure synergy - then the AI agent explains the verdict."}
           </p>
           <div style={{ marginTop: 18 }}>
             {mode === "assess" ? <AssessTool /> : <SiteTool />}
@@ -70,20 +70,24 @@ export default function Home() {
             <p>
               Practically every kilowatt a server draws leaves the building as heat. A facility with a 10 MW IT
               load emits roughly <strong>10 MW of thermal power, continuously</strong> - about 87.6 GWh of heat a
-              year, enough for several thousand homes. The catch is temperature: air-cooled halls deliver
+              year - roughly 5,800 homes at 15,000 kWh of space heating each. The catch is temperature: air-cooled halls deliver
               25-45 °C, direct liquid cooling 45-60 °C, while classic district heating wants 70-90 °C. Large heat
-              pumps bridge that gap with a COP of 3-5 (each unit of electricity moves 3-5 units of heat), and
-              modern low-temperature networks can take the heat almost directly. HeatLoop&apos;s heat balance
-              assumes <strong>85% capture</strong> of the IT load and <strong>12% network losses</strong>, at
+              pumps bridge that gap - COP roughly 2.5-3.5 for the high lift into classic 70-90 °C networks,
+              up to ~5 into low-temperature 4th/5th-generation systems, which can take the heat almost
+              directly. In practice, well over 90% of drawn electricity ends up as recoverable low-grade heat - HeatLoop&apos;s heat balance
+              conservatively assumes <strong>85% capture</strong> of the IT load and <strong>12% network losses</strong>, at
               15,000 kWh per home and year - every constant is documented and adjustable in the model.
             </p>
             <h3>The law that changed the map</h3>
             <p>
-              Germany&apos;s Energy Efficiency Act (EnEfG, in force since 2024) applies to data centres from
+              Germany&apos;s Energy Efficiency Act (EnEfG, in force since November 2023) applies to data centres from
               300 kW connected load and sets a binding <strong>Energy Reuse Factor</strong>: at least
-              <strong> 10%</strong> of energy reused for facilities starting operation from July 2026,
-              <strong> 15%</strong> from 2027 and <strong>20%</strong> from 2028 - plus PUE limits (1.2 for new
-              builds) and 100% renewable electricity from 2027. Exemptions exist only where municipalities commit
+              <strong> 10%</strong> of energy reused for facilities starting operation from 1 July 2026,
+              <strong> 15%</strong> from 1 July 2027 and <strong>20%</strong> from 1 July 2028 - plus PUE limits
+              (1.2 for new builds; existing stock ≤ 1.5 from 2027 and ≤ 1.3 from 2030) and 100% renewable
+              electricity from 2027 under current law. A June 2026 cabinet draft would raise the threshold to
+              500 kW IT load, stretch the PUE path, and defer the renewables duty to 2030 - the ERF percentages
+              stay. Exemptions exist only where municipalities commit
               to heat networks or decline offered heat. In plain terms: <strong>a nearby heat sink is now a legal
               siting criterion</strong>, not a nice-to-have.
             </p>
@@ -93,8 +97,8 @@ export default function Home() {
               fields absorbing waste heat and cutting chiller electricity) and as <strong>seasonal storage</strong>
               (charge heat in summer, feed district heating in winter). Ground that conducts heat well works
               better for both. HeatLoop reads that property from my M.Sc. thesis at KIT - a model coupling
-              <strong> 8 CMIP6 climate models</strong> with borehole-heat-exchanger physics across Germany at 5 km
-              resolution. It found sustainable extraction rates of <strong>26.97-47.39 W/m</strong> and showed
+              <strong> 8 CMIP6 climate models</strong> with borehole-heat-exchanger physics across Germany on a 5 km analysis grid (resampled from the
+              native ~25 km NEX-GDDP-CMIP6 data). It found sustainable extraction rates of <strong>~27-47 W/m</strong> and showed
               climate warming itself boosts them 8-24% by 2100. The same per-pixel W/m values that tell you where
               extraction thrives tell you where the ground couples heat well - which is exactly what the siting
               score uses (doi:10.5281/zenodo.20540260).
@@ -109,7 +113,7 @@ export default function Home() {
           <div className="section-eyebrow"><span className="sym">§ 03</span>Workflow</div>
           <h2 className="title">From open data to a <em>grounded verdict</em>.</h2>
           <div className="flow-grid">
-            <div className="flow-step"><span className="n">1</span><h4>Open data in</h4><p>271 German data centres (OpenStreetMap snapshot + live Overpass refresh), 7,648 towns with population (GeoNames), and the thesis geothermal grid (CMIP6 SSP 2-4.5 / 5-8.5) - all bundled, so lookups are instant and never depend on a flaky API.</p></div>
+            <div className="flow-step"><span className="n">1</span><h4>Open data in</h4><p>271 German data centres (OpenStreetMap snapshot + live Overpass refresh - a mapped subset of Germany's ~2,000 facilities above 100 kW), 7,648 towns with population (GeoNames), and the thesis geothermal grid (CMIP6 SSP 2-4.5 / 5-8.5, 5 km analysis grid resampled from ~25 km) - all bundled, so lookups are instant and never depend on a flaky API.</p></div>
             <div className="flow-step"><span className="n">2</span><h4>Deterministic physics</h4><p>Per point or facility: heat balance (capture, losses, homes-heatable), EnEfG targets in absolute GWh and homes, and the 0-100 siting score (subsurface 40 + heat demand 40 + synergy 20). Same numbers every time - no AI involved yet.</p></div>
             <div className="flow-step"><span className="n">3</span><h4>Retrieval grounding</h4><p>A curated knowledge base (EnEfG provisions, VDI 4640 values, thesis findings, heat-pump engineering) is searched with BM25 lexical retrieval - RAG without a vector database. Every report cites the chunk IDs it used.</p></div>
             <div className="flow-step"><span className="n">4</span><h4>Agent writes, critic checks</h4><p>A multi-step agent plans, runs three real tools, drafts the report with Llama 3.3 (Groq), then a critic pass verifies every figure against the computed numbers before you see it - streaming each step live.</p></div>
@@ -176,9 +180,12 @@ export default function Home() {
               {" "}<a href="https://github.com/vaibhavjgeo/heatloop" style={{ color: "var(--accent)", borderBottom: "1px solid var(--accent-soft)" }}>GitHub</a>.
             </p>
             <p className="hint" style={{ marginTop: 10 }}>
-              Honest limits: first-pass planning estimates on open data, not engineering advice. Facility locations
-              are community-mapped and power ratings are user inputs; subsurface values are 5 km model output, not
-              site investigations.
+              Honest limits: first-pass planning estimates on open data, not engineering advice. Facility locations are
+              community-mapped (a subset of ~2,000 German centres) and power ratings are user inputs; subsurface
+              values come from a 5 km analysis grid resampled from ~25 km climate data, not site investigations;
+              population is only a proxy for heat demand (real planning uses Wärmekataster / kommunale
+              Wärmeplanung); and data-centre heat is continuous while heating demand is seasonal - the reason
+              seasonal storage (BTES) matters.
             </p>
           </div>
         </div>
