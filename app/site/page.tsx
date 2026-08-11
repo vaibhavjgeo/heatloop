@@ -96,6 +96,7 @@ export default function SitePage() {
           <p className="lead">
             Click anywhere in Germany. The point is scored on subsurface thermal potential (published 5 km climate-geothermal model, SSP 5-8.5), population within 5 km as heat-demand proxy (GeoNames), and infrastructure synergy - then the AI agent explains the verdict.
           </p>
+          <div className="tool-switch">Have an existing facility? <a href="/assess">→ Assess a data centre</a></div>
         </div>
       </section>
 
