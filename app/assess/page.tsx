@@ -119,6 +119,7 @@ export default function AssessPage() {
           <p className="lead">
             Pick a facility on the map ({dcs.length ? `${dcs.length} German data centres, ${source}` : "loading…"}) or just enter an IT load. OpenStreetMap rarely records power ratings, so the MW field is yours to set - typical colocation halls run 2-20 MW, hyperscale campuses 30-100+ MW.
           </p>
+          <div className="tool-switch">Looking for a new location instead? <a href="/site">→ Score a new site</a></div>
         </div>
       </section>
 
